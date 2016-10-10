@@ -1,0 +1,8 @@
+alias gs="git status"
+alias gc="git clone "
+alias gm="git commit -m "
+alias gpull="git pull"
+alias gpush="git push"
+alias cd1="cd .."
+alias cd2="cd ../../"
+alias cd3="cd ../../../"
