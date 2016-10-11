@@ -1,4 +1,4 @@
-#常用命令别名
+####常用命令别名#####
 alias to_home="cd /Users/panbing/mypro/golang/src/bitbucket.org/applysquare"
 alias to_gopath="cd $GOPATH"
 alias to_geren="cd /Users/panbing/apply_square"
