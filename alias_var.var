@@ -15,5 +15,5 @@ alias cd2="cd ../../"
 alias cd3="cd ../../../"
 
 ##Docker
-alias runDocker="docker-machine start && eval $(docker-machine env default) && to_home && cd applysquare-django/docker/development && docker-compose start"
+alias runDocker="docker-machine start && eval $(docker-machine env default) && toDjangoApp && docker-compose start"
 alias downDocker="toDjangoApp && docker-compose stop && docker-machine stop"
