@@ -1,8 +1,9 @@
 ####常用命令别名#####
-alias subl=\''/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl'\'
-alias to_home="cd /Users/panbing/mypro/golang/src/bitbucket.org/applysquare"
-alias to_gopath="cd $GOPATH"
-alias to_geren="cd /Users/panbing/apply_square"
+alias toHome="cd /Users/panbing/mypro/golang/src/bitbucket.org/applysquare"
+alias toDjangoApp="cd /Users/panbing/mypro/golang/src/bitbucket.org/applysquare/applysquare-django/docker/development"
+alias toGoApp="cd /Users/panbing/mypro/golang/src/bitbucket.org/applysquare/applysquare-go"
+
+alias toGeren="cd /Users/panbing/apply_square"
 
 alias gs="git status"
 alias gc="git clone "
@@ -12,3 +13,7 @@ alias gpush="git push"
 alias cd1="cd .."
 alias cd2="cd ../../"
 alias cd3="cd ../../../"
+
+##Docker
+alias runDocker="docker-machine start && eval $(docker-machine env default) && to_home && cd applysquare-django/docker/development && docker-compose start"
+alias downDocker="toDjangoApp && docker-compose stop && docker-machine stop"
