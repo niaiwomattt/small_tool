@@ -1,11 +1,16 @@
 ####常用命令别名#####
+
+## 程序
+alias subl='open -a "Sublime Text"'
+## 路径跳转别名
 alias toHome="cd /Users/panbing/mypro/golang/src/bitbucket.org/applysquare"
 alias toDjangoApp="cd /Users/panbing/mypro/golang/src/bitbucket.org/applysquare/applysquare-django/docker/development"
 alias toGoApp="cd /Users/panbing/mypro/golang/src/bitbucket.org/applysquare/applysquare-go"
-
 alias toGeren="cd /Users/panbing/apply_square"
 
+## git
 alias gs="git status"
+alias ga="git add ."
 alias gc="git clone "
 alias gm="git commit -m "
 alias gpull="git pull"
@@ -14,6 +19,7 @@ alias cd1="cd .."
 alias cd2="cd ../../"
 alias cd3="cd ../../../"
 
+
 ##Docker
-alias runDocker="docker-machine start && eval $(docker-machine env default) && toDjangoApp && docker-compose start"
+alias runDocker="docker-machine start && eval $(docker-machine env default)  &&  toDjangoApp  &&  docker-compose start"
 alias downDocker="toDjangoApp && docker-compose stop && docker-machine stop"
