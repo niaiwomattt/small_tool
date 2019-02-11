@@ -1,0 +1,147 @@
+<!--
+js简单模板替换示例，内容抽取函数，及标准ajax模板
+ -->
+
+<script type="text/html" id="taskModalTpl">
+    <tr class="table_ul" idnum="{noco}">
+        <td width="40%" class="name">{name}</td>
+        <td style="display:none;" width="8%" class="id">{id}</td>
+        <td style="display:none;" class="bat">{bat}</td>
+        <td style="display:none;" class="output">{output}</td>
+        <td style="display:none;" class="status">{status}</td>
+        <td width="60%" style="text-align:left;" class="git_checkout">{git_checkout}</td>
+        <td style="display:none;" width="5%" class="rebuild">{rebuild}</td>
+        <td style="display:none;"  width="8%" class="times">{times}</td>
+        <td style="display:none;" width="10%" class="info">{info}</td>
+    </tr>
+</script>
+<script>
+    /**
+    * 按照顺序替换参数，实现一个简单的模板功能
+    * @param  string tpl   模板字符串
+    * @param  object param 参数对象
+    * @return string       替换后的字符串
+    *
+    * 使用方法
+    * replaceParam('{name}的测试{content}',{'name':'我的','content':'内容'});
+    */
+    function replaceParam(tpl, param) {
+        for (i in param) {
+            tpl = tpl.replace(new RegExp('{' + i + '}', 'g'), param[i]);
+        }
+        return tpl;
+    }
+// 单条数据模板替换输出
+// 替换模板并输出
+var tpl = $("#taskListTpl").html();
+$("#pageTable").append(
+    replaceParam(tpl, {
+        "id": v.id,
+        "name": v.name,
+        "createtime": v.createtime,
+        "creator": v.creator,
+        "status": v.info,
+        "button": v.button,
+        "download": v.download,
+        "projects": v.projects,
+        "log": v.log
+    }
+));
+
+// 多条数据模板替换输出
+var tpl = $("#proListTpl").html();
+var tmp = {};
+var str = '';
+$.each(data.data.list, function (i, v) {
+    if (v.status == 0) {
+        v.statusd = '开启';
+    } else {
+        v.statusd = '关闭';
+    }
+    //    v.button += '<button class="changeStatus" tid="'+v.id+'" '+vd+' status="'+v.status+'" func="'+vv.func+'" >'+vv['button']+'</button>';
+    //v.download = '<button class="getDownload" onclick="getDownload(\''+ v.id+ '\', \''+v.product_nickname+'\')" >点击下载</button>';
+    // 替换模板并输出
+
+    str = replaceParam(tpl, {
+        "id": v.id,
+        "name": v.name,
+        "nickname": v.nickname,
+        "projects": v.projects,
+        "task_createbat": v.task_createbat,
+        "task_testbat": v.task_testbat,
+        "task_publishbat": v.task_publishbat,
+        "task_publish_openbat": v.task_publish_openbat,
+        "status": v.statusd
+    }) + str;
+});
+$("#proTable").append(str);
+
+/**
+ * 添加组件到任务窗口
+ */
+ function addPorjectToTask() {
+    // $('#taskTable tr').remove();
+    // 把已经添加的组件存储到数组中
+    var haveId = {};
+    $('#taskTable tr').each(function (i, v) {
+        haveId[$(v).attr('idnum')] = true;
+    });
+
+    var tpl = $("#taskModalTpl").html();
+    var trCheckbox = $("#project_server input:checked");
+    var tr = null;
+    var tds = null;
+    $.each(trCheckbox, function (i, v) {
+        // 判断选中的是否已经添加
+        tr = $(v).parents('tr').attr('idnum');
+        if (haveId[tr]) {
+            return true;
+        }
+        tds = $(v).parents('td').nextAll()
+        // 输出的task窗口
+        $("#taskTable").append(replaceParam(tpl, getTdKeys(tds)));
+    });
+    $("#name_ipserver option:gt(0)").remove();
+    $('#project_server tr').remove();
+}
+
+/**
+ * 从表格中抽取数据，拼接成对象
+ * 给 replacParam 模板替换使用
+ * 获取td包含的key组成对象返回
+ * @param {*} tds
+ */
+function getTdKeys(tds) {
+    var retObj = {};
+    var key = '';
+    var val = 0;
+    $.each(tds, function (i, v) {
+        key = $(v).attr('class');
+        val = $(v).text();
+        retObj[key] = val;
+    })
+    return retObj;
+}
+
+// ajax 标准模板
+$.ajax({
+    url:"http://www.microsoft.com",    //请求的url地址
+    dataType:"json",   //返回格式为json
+    async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+    data:{"id":"value"},    //参数值
+    type:"GET",   //请求方式
+    beforeSend:function(){
+        //请求前的处理
+    },
+    success:function(req){
+        //请求成功时处理
+    },
+    complete:function(){
+        //请求完成的处理
+    },
+    error:function(){
+        //请求出错处理
+    }
+});
+
+</script>

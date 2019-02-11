@@ -1,0 +1,12 @@
+{
+    "name": "phpRequert",
+    "description": "php pull elasticsearch",
+    "type": "myObjetc",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {"vendor\\": "vendor/"}
+    },
+    "require": {
+        "rmccue/requests": ">=1.0"
+    }
+}

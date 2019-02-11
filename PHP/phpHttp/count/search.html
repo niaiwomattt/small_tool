@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>火绒聚合</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <center>
+        <form action="" method="POST" style="position: absolute;
+        top: 40%;
+        transform: translate(-50%);
+        left: 50%;
+        width: 100%;" >
+        <textarea name="query_string" id="query_string" cols="30" rows="10" placeholder="查询字符串" title="输入 ElasticSearch 查询字符串" style="margin: 0px; height: 130px; width: 373px;" ></textarea>
+        <br>
+        <label>聚合字段：</label> <select name="scanner" title="选择聚合字段"style="width: 200px;height: 26px;" maxlength="2048" >
+                    <option value="hrscan_name.raw">Huorong</option>
+                    <option value="msscan.raw">Microsoft</option>
+                    <option value="avpscan.raw">Kaspersky</option>
+                    <option value="esetscan.raw">ESET</option>
+                </select>
+                <input type="submit" value="下载聚合数据" style="margin-right: -3px; height: 26px;" title="下载所有聚合数据"/>
+            </form>
+    </center>
+</body>
+</html>

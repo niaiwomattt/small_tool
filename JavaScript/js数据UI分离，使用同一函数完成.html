@@ -1,0 +1,384 @@
+<!-- 样例代码，不可运行，真实案例在 lic.huorong.net admin admin 登录查看，许可证管理-> 创建许可证
+    展示使用 默认值，和样式数据，渲染form，减少代码和逻辑，使结构和逻辑更加清晰
+
+-->
+
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+global $nodescnts,$industrys,$provinces,$regsrcs,$states;
+?><!-- 创建授权 -->
+<div class="warranty_main generates pop" id="cfl_div" style="height:713px;">
+    <div class="main_head" style="padding-bottom: 16px;">
+        <img src="<?php echo ESSLIC_FRONT_END_URL ;?>/images/warranty.png"><span class="topic">创建授权</span><span class="exit">×</span>
+    </div>
+    <?=form_open('esslicense/createFormalLic', ['id' => 'formalLic'])?>
+    <div class="rubric"></div>
+    <div class="generates_main rubric1_main form_height" style="margin-top: 16px;height:260px;">
+        <div>
+            <span class="cap">类型</span>
+            <span class="colon" style="margin-left: 23px;">：</span>
+            <a class="radioDiv agent_style" >
+                <input name="type_sales" class="type_sales agent_input radios" value="agent" type="radio" required="required" checked >代理商
+            </a>
+        </div>
+        <div>
+            <a class="radioDiv sales_style">
+                <input name="type_sales" class="type_sales sales_input radios" value="no_agent" type="radio" required="required">公司直销
+            </a>
+        </div>
+        <div class="sales_agent auth div_item" >
+            <div style="padding:0;" class="order_id div_item" >
+                <span class="cap ">订单编号：</span>
+                <input name="order_id" class="val_item" type="text" required="required"/>
+                <span class="cap"></span><span class='colon'></span>
+            </div>
+            <div class="agent_company_name div_item" >
+                <span class="cap">代理商</span>
+                <span class="colon" style="margin-left: 10px;">：</span>
+                <input name="agent_company_name" class="readonly val_item" type="text" required="required" readonly/>
+            </div>
+            <div class="company_name div_item" style="display:none;">
+                <span class="cap">客户名称：</span>
+                <input name="company_name" class="val_item" type="text" required="required" />
+            </div>
+            <div class="lictype div_item">
+                <span class="cap">授权状态：</span>
+                <input name="lictype" class="readonly val_item" type="text" value="正版授权" required="required" readonly/>
+            </div>
+            <div class="licnodes div_item">
+                <span class="cap">授权台数：</span>
+                <input name="licnodes" class="readonly val_item" type="text" required="required" readonly />
+            </div>
+            <div class="licdays div_item">
+                <span>授权期限：</span>
+                <select name="licdays" class="readonly val_item" readonly disabled>
+                    <option value="365">一年</option>
+                    <option value="1095">三年</option>
+                </select>
+            </div>
+            <div class="send_email div_item">
+                <span class="cap">邮件通知：</span>
+                <input name="send_email" class="val_item" type="text" required="required"/>
+            </div>
+            <div class="send_phone div_item">
+                <span class="cap">短信通知：</span>
+                <input name="send_phone" class="val_item" type="text"   required="required"/>
+            </div>
+        </div>
+    </div>
+        <div class="rubric"></div>
+        <div class="rubric2_main form2_height" style="height:300px;">
+            <div>
+                <span class="cap">客户资料：</span>
+                <a class="radioDiv agent_style" >
+                    <input name="type_message" class="type_message agent_input radios  div_item  val_item" value="all_mess" type="radio" required="required" checked>资料齐全
+                </a>
+                <a class="radioDiv sales_style" >
+                    <input name="type_message" class="type_message sales_input no_mess radios  div_item  val_item" value="no_mess" type="radio" required="required" disabled>资料不全(客户登录完善信息)
+                </a>
+            </div>
+            <div class="type_all_mess auth div_item">
+                <div class="name div_item">
+                    <span class="cap">客户名称：</span>
+                    <input name="name" type="text" class="readonly val_item" required="required" readonly/>
+                </div>
+                <div class="contact div_item">
+                    <span class="cap">联系人</span><span class='colon' style="margin-left:14px;">：</span>
+                    <input name="contact" class="readonly val_item"  type="text" required="required" readonly/>
+                </div>
+                <div class="province div_item">
+                    <span class="cap">所在地区：</span>
+                    <select name="province" class="val_item">
+                        <?php foreach($provinces as $k => $v){
+                            echo "<option value=".$k.">".$v."</option>";
+                        } ?>
+                    </select>
+                </div>
+                <div class="phone div_item">
+                    <span class="cap">联系电话：</span>
+                    <input name="phone" type="text" class="readonly val_item" required="required" readonly/>
+                </div>
+                <div class="trade div_item">
+                    <span class="cap">所属行业：</span>
+                    <select name="trade" class="trade val_item">
+                        <?php foreach($industrys as $k => $v){
+                            echo "<option value=".$k.">".$v."</option>";
+                        } ?>
+                    </select>
+                </div>
+                <div class="email div_item">
+                    <span class="cap">邮箱地址：</span>
+                    <input name="email" type="text" class="readonly val_item" required="required" readonly/>
+                </div>
+                <div class="nodes div_item">
+                    <span class="cap">终端规模：</span>
+                    <select name="nodes" class="val_item">
+                        <?php foreach($nodescnts as $k => $v){
+                            echo "<option value=".$k.">".$v."</option>";
+                        } ?>
+                    </select>
+                </div>
+                <div class="im div_item">
+                    <span class="cap">QQ号码</span><span class='colon1' style="margin-left:6px;">：</span>
+                    <input name="im" type="text" class="val_item" required="required"/>
+                </div>
+            </div>
+      </div>
+      <div class="borders"></div>
+      <div>
+        <button class="cancel myButtonCss myButtonCancelCss" style="margin-top: 15px;">取消</button>
+        <button class="ensure myButtonCss myButtonSubmitCss" style="margin-right: 13px;margin-top: 15px;" on id="cfl" >确定</button>
+      </div>
+    </form>
+</div>
+
+<script>
+// 事件绑定
+$(function () {
+    //展示创建正式许可证
+    $(".lic_create").click(function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        showCflHtml();
+    });
+
+    // 添加关闭按钮事件
+    $(".cancel").click(function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        $(".shades").removeClass('shade');
+        $(".pop").remove();
+    });
+
+    // 创建许可证请求
+    $(document).on('click','#cfl',function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        createCfl();
+        // 阻止表单的默认提交功能
+        return false;
+    });
+
+    //订单号查询并回显
+    $(document).on('blur', '.order_id input', function (e) {
+        var reg = /^[0-9]{24}$/;
+        var val = $(this).val();
+        if (val == "" || !reg.test(val)) {
+            alert('订单号格式不正确');
+            return false;
+        }
+        getOrder(this);
+    });
+
+    // 按钮
+    $(document).on('change', '.radios', function () {
+        // 初始化表单
+        renderModel('#cfl_div', defaultData);
+        // 切换表单
+        var status = $(this).val();
+        transForm('#cfl_div', status);
+    });
+
+    // 关闭按钮添加事件
+    $(document).on('click', '.cancel', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        $(".shades").removeClass('shade');
+        $(".pop").remove();
+    });
+
+});
+
+    // 表单默认值
+    var defaultData = {
+        'order_id': '',
+        'agent_company_name': '',
+        'company_name': '',
+        'lictype': '正版授权',
+        'licnodes': '',
+        'licdays': 365,
+        'send_email':'',
+        'send_phone':'',
+        'name':'',
+        'contact':'',
+        'province': 1,
+        'phone':'',
+        'trade': 1,
+        'email':'',
+        'nodes': 1,
+        'im':'',
+    };
+
+    // 订单字段转换到授权字段
+    var orderToAuth = {
+        'product_num':'licnodes',
+        'product_year':'licdays',
+        'agent_email':'send_email',
+        'agent_phone':'send_phone',
+        'client_company_name':'name',
+        'client_contacter': 'contact',
+        'client_phone':'phone',
+        'client_email':'email',
+    };
+
+    /**
+     * 转换字段
+     *
+     * @param {*} trans 映射
+     * @param {*} data 数据
+     * @returns
+     */
+    function transData(trans, data) {
+        $.each(trans, function (i,v) {
+            data[v] = data[i];
+        });
+        return data;
+    }
+
+    /**
+     * 获取订单数据
+     *
+     */
+    function getOrder(that) {
+        $.ajax({
+            type: 'get',
+            url: agent_url,
+            data: {
+                'order_id': $(that).val()
+            },
+            dataType: 'json',
+            success: function (msg) {
+                if (msg.status == 200) {
+                    msg.data['product_year'] = Number(msg.data['product_year']) * 365;
+                    var inData = transData(orderToAuth, msg.data);
+                    var allData = $.extend({}, defaultData, inData);
+                    renderModel('#cfl_div', allData);
+                } else {
+                    alert(msg.msg);
+                }
+            }
+        });
+    }
+
+    /**
+     * 创建许可证请求
+     *
+     */
+    function createCfl() {
+        $("#loading-2").show();
+        var postData = $('#formalLic').serialize();
+        postData += '&licdays=' + $("select[name='licdays']").val();// disabled 元素不能传值，用js赋值传送。
+
+        $.ajax({
+            url: cfl_url,
+            data: postData,
+            type: 'post',
+            dataType: 'json',
+            async: true,
+            cache: false,
+            success: function (e) {
+                $("#loading-2").hide();
+                if (e.status == 200){
+                    window.location.reload();
+                }else{
+                    alert(e.msg);
+                }
+            }
+        });
+    }
+
+    /**
+     * 显示表单HTML
+     *
+     */
+    function showCflHtml() {
+        $.get(scfl_url,function(data){
+            var dlg = $('<div class="check pop"></div>').html(data);
+            $(".shades").addClass('shade');
+
+            $(dlg).on('click','.exit',function(){
+                dlg.remove();
+                $(".shades").removeClass('shade');
+            });
+
+            $('body').append(dlg);
+        });
+
+    }
+
+    /**
+     * 表单设置数据
+     */
+    var formStatus = {
+        'agent':{
+            'reset': true,
+            'hide':['company_name'],
+            'readonly':['agent_company_name','licnodes','licdays','name','contact','phone','email'],
+            'disabled':['no_mess','licdays','lictype']
+        },
+        'no_agent':{
+            'reset': true,
+            'hide':['order_id','agent_company_name'],
+            'readonly':['lictype'],
+            'disabled':[]
+        },
+        'all_mess':{
+            'reset': false,
+            'hide':[],
+            'readonly':[],
+            'disabled':[]
+        },
+        'no_mess':{
+            'reset': false,
+            'hide':['type_all_mess'],
+            'readonly':[],
+            'disabled':[]
+        },
+    };
+
+    /**
+     * 转换表单状态
+     * 明确只接受 on|off 其他都不管用
+     *
+     * @param {*} id
+     * @param {*} status
+     */
+    function transForm(id, status) {
+
+        // 根据状态得到赋值数据
+        var arr = formStatus[status];
+        // 重置所有状态
+        if (arr['reset']) {
+            $('#cfl_div .div_item').show();
+            $('#cfl_div .val_item').removeClass('readonly').attr('readonly', false).attr('disabled', false);
+        }else{
+            $('#cfl_div .type_all_mess').show();
+        }
+        // 隐藏
+        $.each(arr['hide'], function (i,v) {
+            $(id+'  .'+v).hide();
+        });
+        // 只读
+        $.each(arr['readonly'], function (i,v) {
+            $(id+'  .'+v+'  '+'.val_item').addClass('readonly');
+            $(id+'  .'+v+'  '+'.val_item').attr('readonly', true);
+        });
+        // 不可用
+        $.each(arr['disabled'], function (i,v) {
+            $(id+'  .'+v+'  '+'.val_item').attr('disabled', true);
+        });
+    }
+
+    /**
+     *根据数据渲染模态框
+     *
+     * @param {*} id 外层id
+     * @param {*} data 渲染数据
+     */
+    function renderModel(id, data) {
+        $.each(data,function (i,v) {
+            $(id+'  .'+i+'  '+'.val_item' ).val(v);
+        });
+    }
+
+</script>
